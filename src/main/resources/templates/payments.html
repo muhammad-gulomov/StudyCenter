@@ -2,57 +2,107 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Payments</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+
+        .sidebar {
+            background-color: #4267B2; /* Facebook blue */
+            color: white;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            background-color: #4267B2; /* Facebook blue */
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .btn-primary {
+            background-color: #4267B2; /* Facebook blue */
+            border-color: #4267B2;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(66, 103, 178, 0.1); /* Light Facebook blue for odd rows */
+        }
+
+        .form-control, .btn {
+            border-radius: 0;
+        }
+
+        .content {
+            padding-top: 20px; /* Ensure content does not overlap the fixed header */
+        }
+    </style>
 </head>
 <body>
-<div class="row">
-    <th:block th:insert="sidebar::sidebar"></th:block>
-    <div class="col-3" style="margin-left: -60px"></div>
-    <div class="col-9">
-        <div class="row">
-            <div class="col-7 offset-5 p-3">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3 sidebar">
+            <th:block th:insert="sidebar::sidebar"></th:block>
+        </div>
+        <div class="col-9">
+            <div class="header d-flex justify-content-between align-items-center sticky-top">
+                <h1>Payments</h1>
                 <form action="/payments/filter" method="get" class="d-flex gap-3">
                     <div class="form-group">
-                        <label for="fromDate">From:</label>
+                        <label for="fromDate" class="form-label">From:</label>
                         <input type="datetime-local" class="form-control" id="fromDate" name="fromDate">
                     </div>
                     <div class="form-group">
-                        <label for="toDate">To:</label>
+                        <label for="toDate" class="form-label">To:</label>
                         <input type="datetime-local" class="form-control" id="toDate" name="toDate">
                     </div>
-                    <div>
-                        <br>
+                    <div class="align-self-end">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="container">
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Phone Number</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="payment:${payments}">
-                    <td th:text="${payment.firstName()}"></td>
-                    <td th:text="${payment.lastName()}"></td>
-                    <td th:text="${payment.phoneNumber()}"></td>
-                    <td th:text="${payment.amount()}"></td>
-                    <td th:text="${payment.date()}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="container content">
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone Number</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="payment, stat : ${payments}">
+                        <td th:text="${stat.index + 1}"></td>
+                        <td th:text="${payment.firstName()}"></td>
+                        <td th:text="${payment.lastName()}"></td>
+                        <td th:text="${payment.phoneNumber()}"></td>
+                        <td th:text="${payment.amount()}"></td>
+                        <td th:text="${payment.date()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -60,6 +110,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-
 </body>
 </html>

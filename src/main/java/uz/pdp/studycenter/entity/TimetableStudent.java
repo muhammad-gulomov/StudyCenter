@@ -13,13 +13,22 @@ import java.util.List;
 @Entity
 public class TimetableStudent extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private User student;
     @ManyToOne
     private Timetable timetable;
     private int paid;
     private boolean paymentStatus;
-    @OneToMany(mappedBy = "timetableStudent")
+    @OneToMany(mappedBy = "timetableStudent", fetch = FetchType.EAGER)
     private List<StudentAttendance> attendances;
 
+    @Override
+    public String toString() {
+        return "TimetableStudent{" +
+               "paymentStatus=" + paymentStatus +
+               ", paid=" + paid +
+               ", timetable=" + timetable +
+               ", student=" + student +
+               '}';
+    }
 }

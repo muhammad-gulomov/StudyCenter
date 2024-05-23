@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public StudentInfoResponseDto findStudentInfosById(Long id) {
         List<Object[]> studentInfosById = userRepo.findStudentInfosById(id);
-        return studentInfosById.stream().map(item-> mapToStudentInfoDto(item)).toList().get(0);
+        return studentInfosById.stream().map(this::mapToStudentInfoDto).toList().get(0);
     }
 
     private StudentInfoResponseDto mapToStudentInfoDto(Object[] item) {

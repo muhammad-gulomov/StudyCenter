@@ -12,4 +12,6 @@ public interface TimetableService {
     Timetable save(Timetable timetable);
 
     List<Timetable> findAll();
+
+    List<Timetable> findAllByGroupId(Long groupId);
 }
