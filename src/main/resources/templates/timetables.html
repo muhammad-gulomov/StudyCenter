@@ -68,7 +68,7 @@
 
         .attendance-true, .attendance-false {
             display: inline-block;
-            width: 30px; /* Square dimensions */
+            width: 50px; /* Square dimensions */
             height:50px;
             background-color: #dc3545; /* Default red color */
             margin-right: 5px; /* Spacing between squares */
@@ -165,7 +165,10 @@
                             <td th:text="${iterStat.index + 1}"></td>
                             <td class="offset-2" th:text="${student.fullName}"></td>
                             <td th:each="attendance, status : ${student.getAttendances()}">
-                                <a href="#" th:class="${attendance} ? 'attendance-true' : 'attendance-false'" th:onclick="'changeAttendance(' + ${status.index} + ')'" style="display: inline-block; width: 20px; height: 20px;"></a>
+                                <a th:href="@{'http://localhost:8080/attendance/' + ${status.index}}"
+                                   th:class="${attendance} ? 'attendance-true' : 'attendance-false'"
+                                   th:onclick="'changeAttendance(' + ${status.index} + ')'" style="display: inline-block; width: 20px;
+                height: 20px;"></a>
                             </td>
                         </tr>
                     </th:block>

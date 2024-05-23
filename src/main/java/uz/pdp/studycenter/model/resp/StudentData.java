@@ -4,4 +4,8 @@ public interface StudentData {
     String getFullName();
 
     Boolean[] getAttendances();
+
+    Long[] getAttendanceIds();
+
+    Long[] getStudentIds();
 }

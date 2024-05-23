@@ -13,12 +13,8 @@ import uz.pdp.studycenter.service.AttendanceService;
 public class AttendanceController {
     private final AttendanceService attendanceService;
 
-    @GetMapping("/attendance/{studentId}/{attendanceId}/{lessonNumber}")
-    private String alterStatusById(
-            @PathVariable Long studentId,
-            @PathVariable Long attendanceId,
-            @PathVariable Integer lessonNumber) {
-        attendanceService.alterStateById(attendanceId);
+    @GetMapping("/attendance/{attendanceId}")
+    private String alterStatusById(@PathVariable Long attendanceId) {
         attendanceService.alterStateById(attendanceId);
         return "redirect:/timetable";
     }
